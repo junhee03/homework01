@@ -1,13 +1,14 @@
 #include <string.h>
 #include "screen.h"
+#include "game.h"
 
 int clearBuffer(char* screenBuf, int width, int height)
 {
-	int i = 0;	/* °¡·Î index */
-	int j = 0;  /* ¼¼·Î index */
+	int i = 0;	/* ê°€ë¡œ index */
+	int j = 0;  /* ì„¸ë¡œ index */
 	while (j < height)
 	{
-		while (i < width + 1) /* °³Çà¹®ÀÚ¶§¹®¿¡ + 1*/
+		while (i < width + 1) /* ê°œí–‰ë¬¸ìžë•Œë¬¸ì— + 1*/
 		{
 			if (i == width)
 				screenBuf[i + (j * (width + 1))] = '\n';
@@ -26,35 +27,40 @@ int clearBuffer(char* screenBuf, int width, int height)
 	screenBuf[height * (width + 1) - 1] = '\0';
 }
 
-/* ¼ö¾÷½Ã°£¿¡ ¹è¿î x,y¿¡ ½ºÆ®¸µÀ» ¾²´Â ÇÔ¼ö¸¦ Â¥¸é µÊ. */
+/* ìˆ˜ì—…ì‹œê°„ì— ë°°ìš´ x,yì— ìŠ¤íŠ¸ë§ì„ ì“°ëŠ” í•¨ìˆ˜ë¥¼ ì§œë©´ ë¨. */
 int writeStringToBuffer(char* screenBuf, const char* string, int x, int y)
 {
 	memmove((screenBuf + x + y * 35), string, strlen(string));
 }
 
-/* Å¸ÀÌÆ² È­¸é ±×¸®´Â ¹öÆÛ¶û °ÔÀÓ¿À¹ö, °ÔÀÓ¼³¸í µîµî ÀÌ·±½ÄÀ¸·Î ¸¸µé¸é º¸±â ÆíÇÏ°ÚÁÒ? */
+/* íƒ€ì´í‹€ í™”ë©´ ê·¸ë¦¬ëŠ” ë²„í¼ëž‘ ê²Œìž„ì˜¤ë²„, ê²Œìž„ì„¤ëª… ë“±ë“± ì´ëŸ°ì‹ìœ¼ë¡œ ë§Œë“¤ë©´ ë³´ê¸° íŽ¸í•˜ê² ì£ ? */
 int setTitleToScreenBuffer(char* screenBuf, int width, int height)
 {
-	writeStringToBuffer(screenBuf, "¹«´ÜÈ¾´Ü °ÔÀÓ", 11, 3);
-	writeStringToBuffer(screenBuf, "1. °ÔÀÓ ½ÃÀÛ", 11, 5);
-	writeStringToBuffer(screenBuf, "2. °ÔÀÓ ¹æ¹ý", 11, 6);
-	writeStringToBuffer(screenBuf, "3. °ÔÀÓ Á¾·á", 11, 7);
+	writeStringToBuffer(screenBuf, "í¼ì¦ ê²Œìž„", 11, 3);
+	writeStringToBuffer(screenBuf, "1. ê²Œìž„ ì‹œìž‘", 11, 5);
+	writeStringToBuffer(screenBuf, "2. ê²Œìž„ ë°©ë²•", 11, 6);
+	writeStringToBuffer(screenBuf, "3. ê²Œìž„ ì¢…ë£Œ", 11, 7);
 }
 int setPlayingGameScreenBuffer(char* screenBuf, int width, int height)
 {
-	writeStringToBuffer(screenBuf, "°ÔÀÓ ÁøÇà È­¸éÀÔ´Ï´Ù", 7, 5);
+	writeStringToBuffer(screenBuf, "ê²Œìž„ ì§„í–‰ í™”ë©´ìž…ë‹ˆë‹¤", 7, 5);
 }
 
 int setHowToPlayScreenBuffer(char* screenBuf, int width, int height)
 {
-	writeStringToBuffer(screenBuf, "°ÔÀÓ ¼³¸í È­¸éÀÔ´Ï´Ù", 7, 3);
-	writeStringToBuffer(screenBuf, "Á¶ÀÛÅ° : w,a,s,d", 7, 5);
-	writeStringToBuffer(screenBuf, "Àå¾Ö¹°À» ÇÇÇØ", 7, 6);
-	writeStringToBuffer(screenBuf, "¾ÕÀ¸·Î ³ª¾Æ°¡¼¼¿ä!", 7, 7);
+	writeStringToBuffer(screenBuf, "ê²Œìž„ ì„¤ëª… í™”ë©´ìž…ë‹ˆë‹¤", 7, 3);
+	writeStringToBuffer(screenBuf, "ì¡°ìž‘í‚¤ : w,a,s,d", 7, 5);
+	writeStringToBuffer(screenBuf, "ìˆ«ìžë¥¼ ìˆœì„œëŒ€ë¡œ", 7, 6);
+	writeStringToBuffer(screenBuf, "ë‚˜ì—´í•´ë³´ì„¸ìš”", 7, 7);
 }
 
 int setGameOverToScreenBuffer(char* screenBuf, int width, int height)
 {
-	writeStringToBuffer(screenBuf, "°ÔÀÓ Á¾·á È­¸éÀÔ´Ï´Ù", 8, 5);
+	writeStringToBuffer(screenBuf, "ê²Œìž„ ì¢…ë£Œ í™”ë©´ìž…ë‹ˆë‹¤", 8, 5);
 	
+}
+
+int drawPlayerToBuffer(char* screenBuf, int x, int y)
+{
+	writeStringToBuffer(screenBuf, "0", x, y);
 }
