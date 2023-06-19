@@ -1,15 +1,58 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include "screen.h"
+#include <stdlib.h>
+#include <time.h>
+#include <windows.h>
 
 int main()
 {
-	/*  width : 35    height : 12    °¡·Î ¿©¹é : 7    ¼¼·Î¿©¹é :5 */
+		clock_t SJTstart;
+		SJTstart = clock();
+
+		int i = 0;
+
+		while (i < 5)
+		{
+
+			COORD pos = { 0,0 };
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
+			printf("Loding : ");
+
+			int j = 0;
+			while (j < i)
+			{
+				printf(".");
+				j = j + 1;
+			}
+			Sleep(550);
+			i = i + 1;
+
+		}
+		Sleep(500);
+		system("cls");
+		printf("ì‹¤í–‰ ì™„ë£Œ");
+		Sleep(1000);
+
+		clock_t SJTend;
+		SJTend = clock();
+
+	/*  width : 35    height : 12    ê°€ë¡œ ì—¬ë°± : 7    ì„¸ë¡œì—¬ë°± :5 */
 	char screenBuf[35 * 12 + 1];
 	int width = 34;
 	int height = 12;
 	int isGamePlaying = 1;
 
 	int selectedIndex;
+
+	#define SIZE 4 // í¼ì¦ì˜ í¬ê¸°
+
+	int puzzle[SIZE][SIZE];
+
+	// ë¹ˆ ê³µê°„ì˜ ìœ„ì¹˜
+	int emptyX, emptyY;
+
 
 	while (isGamePlaying)
 	{
@@ -25,15 +68,16 @@ int main()
 
 		switch (selectedIndex)
 		{
-		case 1 :
-			setPlayingGameScreenBuffer(screenBuf, width, height);
-			printf("%s\ninput>", screenBuf);
+		case 1:
+			//setPlayingGameScreenBuffer(screenBuf, width, height);
+			//printf("%s\ninput>", screenBuf);
+			puzzleGame();
 			break;
-		case 2 :
+		case 2:
 			setHowToPlayScreenBuffer(screenBuf, width, height);
 			printf("%s\ninput>", screenBuf);
 			break;
-		case 3 :
+		case 3:
 			setGameOverToScreenBuffer(screenBuf, width, height);
 			printf("%s\ninput>", screenBuf);
 			return 0;
@@ -41,7 +85,7 @@ int main()
 			break;
 		}
 
-		printf("°è¼ÓÇÏ·Á¸é ¾Æ¹«Å°³ª ´©¸£¼¼¿ä");
+		printf("ê³„ì†í•˜ë ¤ë©´ ì•„ë¬´í‚¤ë‚˜ ëˆ„ë¥´ì„¸ìš”");
 		getchar();
 		getchar();
 	}
